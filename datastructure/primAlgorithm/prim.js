@@ -61,10 +61,13 @@ console.log('Here is the Minimal Spinning Tree: ', mstPrim(A))
 
 function mstPrim(startNode) {
     let mstEdges = []
+    // push startNode's edges to bucket
     for (let i = 0; i < startNode.edges.length; i++) {
         bucket.push(startNode.edges[i])
     }
+    // get best edge from bucket
     let bestEdge = getBestEdge()
+
     while (bestEdge !== null) {
         let n1 = bestEdge.node1
         let n2 = bestEdge.node2
@@ -84,6 +87,7 @@ function mstPrim(startNode) {
         })
         bestEdge = getBestEdge()
     }
+    // Final result
     return mstEdges
 }
 
