@@ -12,7 +12,6 @@ class Node {
     }
 }
 
-
 class Edge {
     constructor(node, weight) {
         this.node = node
@@ -128,7 +127,7 @@ class MinHeap {
         }
     }
 
-    decrease_priority(node) {
+    decreasePriority(node) {
         let newIndex = this.values.indexOf(node);
         let parentIndex = Math.floor((newIndex - 1) / 2);
         while (
@@ -146,3 +145,63 @@ class MinHeap {
         }
     }
 }
+
+
+function Dijkstra(node){
+    let MH = new MinHeap()
+    node.distanceFromStartNode = 0
+    node.visited = true
+    MH.enqueue(A)
+    MH.enqueue(B)
+    MH.enqueue(C)
+    MH.enqueue(D)
+    MH.enqueue(E)
+    MH.enqueue(F)
+    let currentNode = MH.dequeue()
+
+    while (MH.values.length > 0) {
+        // min heap min value node => min node
+        // min value node's neighbors which are not visited => neighbor node
+        // neighbor node distance > current node distance + weight
+        // neighbor node distance = current node distance + weight
+        // neighbor node previous as current node and decrease neighbor node's priority
+        currentNode.edges.forEach(edge => {
+            let neighborNode = edge.node
+            if (!neighborNode.visited) {
+                let d1 = neighborNode.distanceFromStartNode
+                let d2 = currentNode.distanceFromStartNode
+                let d3 = edge.weight
+                if (d1 > d2 + d3) {
+                    neighborNode.distanceFromStartNode = d2 + d3
+                    neighborNode.previous = currentNode
+                    MH.decreasePriority(neighborNode)
+                }
+            }
+        })
+        currentNode = MH.dequeue()
+        currentNode.visited = true
+    }
+
+}
+
+Dijkstra(E)
+
+console.log("A's information")
+console.log('from start node: ', A.distanceFromStartNode)
+console.log('previous: ', A.previous.value);
+console.log('----------------------------------')
+console.log("B's Info");
+console.log('from start node: ', B.distanceFromStartNode);
+console.log('previous: ', B.previous.value);
+console.log('----------------------------------')
+console.log("C's Info");
+console.log('from start node: ', C.distanceFromStartNode);
+console.log('previous: ',  C.previous.value);
+console.log('----------------------------------')
+console.log("D's Info");
+console.log('from start node: ', D.distanceFromStartNode);
+console.log('previous', D.previous.value);
+console.log('----------------------------------')
+console.log("F's Info");
+console.log('from start node: ', F.distanceFromStartNode);
+console.log('previous: ', F.previous.value);
